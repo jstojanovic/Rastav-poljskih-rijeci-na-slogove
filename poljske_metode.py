@@ -28,7 +28,7 @@ pravila = {
 'VCCCCCV' : 'VCC-CCCV',
 'VCCCCCCV' : 'VCC-CCCCV'}
 
-def klasa_fonema(slovo):
+def VGLOFSN(slovo):
     if slovo in fonemi['V']:
         return 'V'
     elif slovo in fonemi['G']:
@@ -46,9 +46,12 @@ def klasa_fonema(slovo):
     else:
         return ''
 
-def uzorak(rijec):
+def osnovni_oblik(slova):
+    return map(VGLOFSN, slova)
+   
+def rastav_naSlova(rijec):
     """rastavlja rijec na slova ukljucujuci sz, cz, dz ..."""
-    slova = list(rijec)
+    slova = [x for x in list(rijec) if x not in [',','.','!','?','-',':']]
     
     for i in range(len(rijec)):
         if i+1 < len(slova) and slova[i]+slova[i+1] == 'dz':
@@ -61,8 +64,8 @@ def uzorak(rijec):
             slova[i : i+2] = [''.join(slova[i : i+2])]
         elif i+1 < len(slova) and slova[i]+slova[i+1] == 'cz':
             slova[i : i+2] = [''.join(slova[i : i+2])]
-    
-    return ''.join(list(map(klasa_fonema, slova)))   
+    return slova
+
 
 def rastav(rijec):
     pass

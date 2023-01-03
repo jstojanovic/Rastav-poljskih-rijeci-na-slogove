@@ -1,8 +1,8 @@
-from poljske_metode import uzorak
+from poljske_metode import rastav_naSlova
 
 with open('tekst.txt', 'r') as file:
     for redak in file:
         for rijec in redak.strip().split(' '):
             if redak != '\n':
-                print(uzorak(rijec.lower()))
+                print(rastav_naSlova(rijec.lower()))
 
