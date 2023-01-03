@@ -1,0 +1,91 @@
+# 1. Sustav najprije provjerava ima li iznimaka:
+# 1.a Za VCCV iznimke su:
+#     VOCV -> V-OCV
+#     VFCV à V-FCV
+#     VSCV à V-SCV, osim ako je C=S
+#     VCGV à V-CGV
+
+# 1.b Za VCCCV iznimke su:
+#     VOOCV à V-OOCV
+#     VFFGV à V-FFGV
+
+# 2. Zatim se primjenjuje rastav prema pravilima:
+#     2.1. VV à V-V
+#     2.2. VCV à V-CV
+#     2.3. VCCV à VC-CV
+#     2.4. VCCCV à VC-CCV
+#     2.5. VCCCCV à VC-CCCV
+#     2.6. VCCCCCV à VCC-CCCV
+#     2.7. VCCCCCCV à VCC-CCCCV
+
+samoglasnici = ('a', 'ą', 'e', 'ę', 'i', 'o', 'ó', 'u', 'y')
+konsonanti = ('b', 'c', 'ć', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ł', 'm', 'n', 'ń', 'p', 'q', 'r', 's', 'ś', 't', 'v', 'w', 'x', 'z', 'ź', 'ż')
+znakovi = ('.', ',', '!', ':', '?', '-')
+
+glides = ('j', 'ł')
+liquids = ('l', 'r')
+occlusives = ('p', 't', 'k', 'b', 'd', 'g', 'q', 'x')
+fricatives_1 = ('dz', 'dż', 'f', 'cz', 'c', 'ć', 'dź', 'z', 'ź', 'ż', 'w', 'h', 'v')
+fricatives_2 = ('ś', 's', 'sz')
+nasals =  ('n', 'ń', 'm')
+
+def rijec_to_vrsta(rijec):
+    """Za neko slovo vraca oznaku njegove vrste 
+    i po***e iterator pa evaluira ostatak sa novim iteratorom"""
+    oznaka = ''
+    rijec = rijec.lower()
+    rijec = iter(rijec)
+    for slovo in rijec:
+        if slovo in samoglasnici:
+            if slovo == 'c':
+                if next(rijec) == 'z':
+                    oznaka += 'F'
+                    rijec.__next__() 
+                else:
+                    oznaka += 'V'
+            else:
+                oznaka += 'V'
+        if slovo in glides:
+            oznaka += 'G'
+        if slovo in liquids:
+            oznaka += 'L'
+        if slovo in occlusives:
+            if slovo == 'd':
+                if next(rijec) in ('z', 'ż', 'ź'):
+                    oznaka += 'F'
+                    rijec.__next__() 
+                else:
+                    oznaka += 'O'
+            else:
+                oznaka += 'O'
+        if slovo in fricatives_1:
+            oznaka += 'F'
+        if slovo in fricatives_2:
+            if slovo == 's':
+                if next(rijec) == 'z':
+                    oznaka += 'S'
+                    rijec.__next__() 
+                else:
+                    oznaka += 'S'
+            else:
+                oznaka += 'S'
+        if slovo in nasals:
+            oznaka += 'N'
+    return oznaka
+
+def jel_iznimka(rijec):
+    """Vraca true ukoliko rijec pripada iznimkama"""
+    pass
+def f(rijec):
+    pass
+
+with open('tekst.txt', 'r') as file:
+    for redak in file:
+        for rijec in redak.strip().split(' '):
+            print(rijec_to_vrsta(rijec))            
+    
+    #rastavi na rijeci 
+    #svaku rijec rastavi na slogove
+        #provjeri da li je rijec iznimka ukoliko da rastavi po pravilu za iznimke
+        #inace rastavi na slogove
+    #rezultat nadopisi u output datoteku

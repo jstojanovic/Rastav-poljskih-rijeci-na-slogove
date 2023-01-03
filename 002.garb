@@ -1,0 +1,4 @@
+with open('slovaHRunordered.txt') as dat:
+    for line in dat:
+        for elm in line.strip().split(' '):
+                print(elm)

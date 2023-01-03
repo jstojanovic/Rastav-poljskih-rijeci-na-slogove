@@ -1,0 +1,50 @@
+# 1. Sustav najprije provjerava ima li iznimaka:
+# 1.a Za VCCV iznimke su:
+#     VOCV -> V-OCV
+#     VFCV à V-FCV
+#     VSCV à V-SCV, osim ako je C=S
+#     VCGV à V-CGV
+
+# 1.b Za VCCCV iznimke su:
+#     VOOCV à V-OOCV
+#     VFFGV à V-FFGV
+
+# 2. Zatim se primjenjuje rastav prema pravilima:
+#     2.1. VV à V-V
+#     2.2. VCV à V-CV
+#     2.3. VCCV à VC-CV
+#     2.4. VCCCV à VC-CCV
+#     2.5. VCCCCV à VC-CCCV
+#     2.6. VCCCCCV à VCC-CCCV
+#     2.7. VCCCCCCV à VCC-CCCCV
+
+samoglasnici = ('a', 'ą', 'e', 'ę', 'i', 'o', 'ó', 'u', 'y')
+konsonanti = ('b', 'c', 'ć', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ł', 'm', 'n', 'ń', 'p', 'q', 'r', 's', 'ś', 't', 'v', 'w', 'x', 'z', 'ź', 'ż')
+znakovi = ('.', ',', '!', ':', '?', '-')
+
+glides_G = ('j', 'ł')
+liquids_L = ('l', 'r')
+occlusive_O = ('p', 't', 'k', 'b', 'd', 'g', 'q', 'x')
+fricative_F = ('dz', 'dż', 'f', 'cz', 'c', 'ć', 'dź', 'z', 'ź', 'ż', 'w', 'h', 'v')
+fricative_S = ('ś', 's', 'sz')
+nasal_N =  ('n', 'ń', 'm')
+
+
+def jel_Vokal(slovo):
+    if(slovo in samoglasnici):
+        return 'V'
+    else:
+        return 'C'
+
+with open('tekst.txt', 'r') as file:
+    for redak in file:
+        for rijec in redak.strip().split(' '):
+            (x for x in  map(jel_Vokal, redak))
+            
+
+    
+    #rastavi na rijeci 
+    #svaku rijec rastavi na slogove
+        #provjeri da li je rijec iznimka ukoliko da rastavi po pravilu za iznimke
+        #inace rastavi na slogove
+    #rezultat nadopisi u output datoteku
