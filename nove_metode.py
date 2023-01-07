@@ -1,6 +1,12 @@
-Here is a function that takes a Polish word as a parameter, splits it into individual letters, and maps those letters to the corresponding categories specified in the question:
+import re
 
-Copy code
+def rastav_na_slova(word):
+  return re.findall(r'(i[ąęoóuy]|ii|[^iąęoóuy]+)', word)
+
+word = input().lower()
+slova = rastav_na_slova(word)
+print(slova)
+
 def classify_letters(word):
   categories = {
     'V' : ('a', 'ą', 'e', 'ę', 'i', 'o', 'ó', 'u', 'y'),
